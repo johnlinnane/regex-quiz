@@ -16,20 +16,12 @@ function shuffle(array) {
 
     while (i--) {
         j = Math.floor(Math.random() * (i+1));
-        // swap randomly chosen element with current element
         temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
     return array;
 }
-
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-}
-
-
 
 
 
@@ -42,8 +34,7 @@ function showInfo(data, tabletop) {
 
     shufArr.forEach(function(index, i) {
         
-        // remove the correct answer from shufArr
-        // remove shufArr[i]
+   
         let wrongAns = shufArr.filter(item => item !== shufArr[i])
         console.log(wrongAns);
         
@@ -52,7 +43,7 @@ function showInfo(data, tabletop) {
         choices[0] = shufArr[i].answer;
         choices[1] = wrongAns[i].answer;
         choices[2] = wrongAns[k].answer;
-        choices = shuffle(choices);
+        const choicesShuf = shuffle(choices);
 
 
 
@@ -65,13 +56,14 @@ function showInfo(data, tabletop) {
             container.appendChild(a);
 
             let butt = document.createElement("button");
-            butt.innerHTML = choices[i];
+            butt.innerHTML = choicesShuf[i];
             a.appendChild(butt);
             butt.onclick = function(){
-                if (choices[i] == shufArr[i].answer) {
-                    let p = document.createElement("p");
-                    p.innerHTML = "Correct";
-                    q.appendChild(p);
+                console.log(shufArr[i].answer);
+                if (choicesShuf[i] == shufArr[i].answer) {
+                    alert('Correct!')
+                } else {
+                    alert('Wrong!')
                 }
             };
         }
