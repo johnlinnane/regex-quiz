@@ -35,14 +35,15 @@ function showInfo(data, tabletop) {
     shufArr.forEach(function(index, i) {
         
    
-        let wrongAns = shufArr.filter(item => item !== shufArr[i])
+        let wrongAns = shufArr.filter(item => item !== shufArr[i]);
+        wrongAns = shuffle(wrongAns);
         console.log(wrongAns);
         
         const k = i + 1;
         let choices = [];
         choices[0] = shufArr[i].answer;
-        choices[1] = wrongAns[i].answer;
-        choices[2] = wrongAns[k].answer;
+        choices[1] = wrongAns[0].answer;
+        choices[2] = wrongAns[1].answer;
         const choicesShuf = shuffle(choices);
 
 
@@ -57,9 +58,11 @@ function showInfo(data, tabletop) {
 
             let butt = document.createElement("button");
             butt.innerHTML = choicesShuf[i];
+            
+
             a.appendChild(butt);
             butt.onclick = function(){
-                console.log(shufArr[i].answer);
+                console.log(choicesShuf[i]);
                 if (choicesShuf[i] == shufArr[i].answer) {
                     alert('Correct!')
                 } else {
