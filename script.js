@@ -39,7 +39,6 @@ function showInfo(data, tabletop) {
         wrongAns = shuffle(wrongAns);
         console.log(wrongAns);
         
-        const k = i + 1;
         let choices = [];
         choices[0] = shufArr[i].answer;
         choices[1] = wrongAns[0].answer;
