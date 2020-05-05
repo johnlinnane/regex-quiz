@@ -38,31 +38,21 @@ function showInfo(data, tabletop) {
 
     const shufArr = shuffle(data);
 
+
+
     shufArr.forEach(function(index, i) {
         
-
-        let ansArr = [];
-        console.log(ansArr);
+        // remove the correct answer from shufArr
+        // remove shufArr[i]
+        let wrongAns = shufArr.filter(item => item !== shufArr[i])
+        console.log(wrongAns);
         
-
-
-        ansArr[0] = index.answer;
-
-        
-        for (var j = 0; j < 2; j++) { 
-
-            let rand = getRandomInt(shufArr.length);
-            let newItem = shufArr[rand].answer;
-
-
-            if (ansArr.indexOf(newItem) === -1) {
-                ansArr.push(newItem);
-                console.log('new item added');
-            } else {
-                rand = getRandomInt(shufArr.length);
-                console.log('random number reassigned');
-            }
-        }
+        const k = i + 1;
+        let choices = [];
+        choices[0] = shufArr[i].answer;
+        choices[1] = wrongAns[i].answer;
+        choices[2] = wrongAns[k].answer;
+        choices = shuffle(choices);
 
 
 
@@ -72,11 +62,10 @@ function showInfo(data, tabletop) {
 
         for (var i = 0; i < 3; i++) {
             let a = document.createElement("div");
-            // a.innerHTML = ansArr[i];
             container.appendChild(a);
 
             let butt = document.createElement("button");
-            butt.innerHTML = ansArr[i];
+            butt.innerHTML = choices[i];
             a.appendChild(butt);
         }
 
