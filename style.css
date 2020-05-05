@@ -447,3 +447,8 @@ blockquote footer {
 }
 
 /* Custom styles */
+
+
+div {
+    padding: 10px;
+}
