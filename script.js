@@ -67,6 +67,13 @@ function showInfo(data, tabletop) {
             let butt = document.createElement("button");
             butt.innerHTML = choices[i];
             a.appendChild(butt);
+            butt.onclick = function(){
+                if (choices[i] == shufArr[i].answer) {
+                    let p = document.createElement("p");
+                    p.innerHTML = "Correct";
+                    q.appendChild(p);
+                }
+            };
         }
 
 
