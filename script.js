@@ -42,10 +42,29 @@ function showInfo(data, tabletop) {
         
 
         let ansArr = [];
+        console.log(ansArr);
+        
+
 
         ansArr[0] = index.answer;
-        ansArr[1] = 'Answer Two';
-        ansArr[2] = 'Answer Three';
+
+        
+        for (var j = 0; j < 2; j++) { 
+
+            let rand = getRandomInt(shufArr.length);
+            let newItem = shufArr[rand].answer;
+
+
+            if (ansArr.indexOf(newItem) === -1) {
+                ansArr.push(newItem);
+                console.log('new item added');
+            } else {
+                rand = getRandomInt(shufArr.length);
+                console.log('random number reassigned');
+            }
+        }
+
+
 
         let q = document.createElement("div");
         q.innerHTML = index.question;
