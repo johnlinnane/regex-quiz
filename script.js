@@ -1,10 +1,17 @@
 
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1MuKQNEpUKI8LoSsAkrV9JWdot1gMZRa8fj4rEAro6JI/edit?usp=sharing';
+
+var regexUrl = 'https://docs.google.com/spreadsheets/d/19_68Tj24EK2-c4HvJwkU_RyujpXPAiwCN5FQjyJbV-4/edit?usp=sharing';
+
+
+let data = [];
+let count = 0;
+let correctCount = 0;
+const root = document.getElementById("root");
 
 
 function init() {
-    Tabletop.init( { key: publicSpreadsheetUrl,
-                    callback: showInfo,
+    Tabletop.init( { key: regexUrl,
+                    callback: getData,
                     simpleSheet: true } );
 }
 
@@ -24,70 +31,81 @@ function shuffle(array) {
 }
 
 
-
-
-function showInfo(data, tabletop) {
-    console.log(data);
-    const shufArr = shuffle(data);
-
-
-    shufArr.forEach(function(index, i) {
-        // console.log(shufArr);
-
-   
-        let wrongAns = shufArr.filter(item => item !== shufArr[i]);
-        wrongAns = shuffle(wrongAns);
-        // console.log(wrongAns);
-        
-        let choices = [];
-        choices[0] = shufArr[i].answer;
-        choices[1] = wrongAns[0].answer;
-        choices[2] = wrongAns[1].answer;
-        const choicesShuf = shuffle(choices);
+function renderScore(score) {
+    let result = document.createElement("div");
+        result.setAttribute("id", "score");
+        result.innerHTML = 
+            `Score is ${score * 10}% <br>
+            <button style="margin-top:120px;" onClick="window.location.reload();">Try again</button>`;
+        root.appendChild(result);
+}
 
 
 
-        let q = document.createElement("div");
-        q.innerHTML = index.question;
+function getData(data, tabletop) {
+    shuffle(data);   
+
+    function renderDiv() {
+
+        let wrongAns = data.filter(item => item !== data[count]);
+        shuffle(wrongAns);
+
+        let choices = [
+            data[count].answer,
+            wrongAns[0].answer,
+            wrongAns[1].answer,
+        ]
+
+        shuffle(choices);
+
+        const container = document.createElement("div");
+        container.setAttribute("id", "container");
+        root.appendChild(container);
+
+        const q = document.createElement("div");
+        q.setAttribute("id", "question");
+        q.innerHTML = data[count].question;
         container.appendChild(q);
-
 
         for (var j = 0; j < 3; j++) {
             let a = document.createElement("div");
+            a.setAttribute("id", "buttons");
             container.appendChild(a);
 
             let butt = document.createElement("button");
-            butt.innerHTML = choicesShuf[j];
-
-            let choice;
-
-            if (j == 0) {
-                choice = choicesShuf[j];
-            } else if (j == 1) {
-                choice = choicesShuf[j];
-            } else {
-                choice = choicesShuf[j];
-            }
-            
- 
-
-            
-
+            butt.innerHTML = choices[j];
             a.appendChild(butt);
-            butt.onclick = function(){
-                console.log(choice);
 
-                if (choice == shufArr[i].answer) {
-                    alert('Correct!')
+
+            butt.onclick = function(e){
+                const choice = e.target.textContent;
+
+                if (choice == data[count].answer) {
+                    butt.style.backgroundColor = "green";
+                    correctCount ++;
                 } else {
-                    alert('Wrong!')
+                    butt.style.backgroundColor = "red";
                 }
+                count ++;
+
+                setTimeout(function(){ 
+                    var element = document.getElementById("container");
+                    element.parentNode.removeChild(element);
+                    
+                    if (count !== 10) {
+                        renderDiv();
+                    } else {
+                        renderScore(correctCount);
+                    }
+                }, 1300);
+
             };
         }
+    }
+    renderDiv();
 
-
-
-    })
 }
+
+
 
 window.addEventListener('DOMContentLoaded', init);
