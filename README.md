@@ -1,6 +1,6 @@
-# Regular Expression Quiz (using Google Sheets to store data)
+# Regular Expression Quiz
 
-### Overview
+### Description
 
 Interactive quiz which uses a Google Sheets CMS for question and answer input.
 
