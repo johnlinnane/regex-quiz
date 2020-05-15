@@ -54,6 +54,7 @@ body {
     margin: 0;
     overflow-x: hidden;
     padding: 1rem 0;
+    text-align: center;
 }
 
 footer,
@@ -269,6 +270,7 @@ button {
     line-height: var(--line-height);
     margin: 0.5rem 0;
     padding: 1rem 2rem;
+    width: 17%;
 }
 
 button {
